@@ -20,4 +20,6 @@ public interface BookService {
     List<Book> getAllByEditionTypeAndCopiesLessThan(String editionType, int copies);
 
     List<Book> getAllByPriceLessThanOrGreaterThan(BigDecimal lessThan, BigDecimal greaterThan);
+
+    List<Book> getAllNotReleasedInYear(int year);
 }

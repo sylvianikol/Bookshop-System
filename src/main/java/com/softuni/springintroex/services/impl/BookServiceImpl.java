@@ -99,6 +99,15 @@ public class BookServiceImpl implements BookService {
                 .findAllByPriceLessThanOrPriceGreaterThan(lessThan, greaterThan);
     }
 
+    @Override
+    public List<Book> getAllNotReleasedInYear(int year) {
+        LocalDate before = LocalDate.of(year, 1, 1);
+        LocalDate after = LocalDate.of(year, 12, 31);
+
+        return this.bookRepository
+                .findAllByReleaseDateBeforeOrReleaseDateAfter(before, after);
+    }
+
     //  HELPER METHODS  ////////////////////////////////
     private String parseBookTitle(String[] params) {
         StringBuilder titleBuilder = new StringBuilder();

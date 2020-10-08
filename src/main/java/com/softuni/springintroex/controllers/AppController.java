@@ -97,13 +97,26 @@ public class AppController implements CommandLineRunner {
         // this.getBooksByEditionTypeAndCopiesLessThan();
 
         // Books by Price
-        this.getBooksByPrice();
+        // this.getBooksByPrice();
+
+        // Not Released Books
+        // this.getBooksNotReleasedInYear();
 
     }
 
-
-
     //  --- METHODS BOOKSHOP SYSTEM Advanced Querying  --- //
+
+    // Not Released Books
+    private void getBooksNotReleasedInYear() throws IOException {
+        this.writer.writeLine("Enter Release Year: ");
+        int year = Integer.parseInt(this.reader.readLine());
+
+        this.bookService
+                .getAllNotReleasedInYear(year)
+                .forEach(b -> this.writer.writeLine(b.getTitle()));
+    }
+
+    // Books by Price
     private void getBooksByPrice() throws IOException {
         this.writer.writeLine("Enter Lower Price Bound: ");
         BigDecimal lower = new BigDecimal(this.reader.readLine());
