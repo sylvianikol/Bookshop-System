@@ -91,4 +91,10 @@ public class AuthorServiceImpl implements AuthorService {
         return this.authorRepository
                 .findAllByLastNameIgnoreCaseStartingWith(s);
     }
+
+    @Override
+    public List<Author> getAllByNumberOfBooksCopiesDesc() {
+        return this.authorRepository
+                .findAllByTotalBookCopiesOrderByTotalDesc();
+    }
 }

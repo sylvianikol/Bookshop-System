@@ -24,4 +24,6 @@ public interface AuthorService {
     List<Author> getAllByFirstNameEndingWith(String s);
 
     List<Author> getAllByLastNameStartingWith(String s);
+
+    List<Author> getAllByNumberOfBooksCopiesDesc();
 }

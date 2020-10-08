@@ -52,16 +52,17 @@ public class AppController implements CommandLineRunner {
     @Override
     public void run(String... args) throws IOException, ParseException {
         // SEED DATA TO BOOKSHOP SYSTEM
+        {
 //        this.categoryService.seedCategories();
 //        this.writer.writeLine("Categories seeded in Database!");
 //        this.authorService.seedAuthors();
 //        this.writer.writeLine("Authors seeded in Database!");
 //        this.bookService.seedBooks();
 //        this.writer.writeLine("Books seeded in Database!");
+       }
 
-
-        // BOOKSHOP SYSTEM QUERIES
-
+        // BOOKSHOP SYSTEM QUERIES Exercises
+        {
         // 1. Get all books after the year 2000. Print only their titles.
         // this.getAllBooksAfterYear2000();
 
@@ -81,47 +82,59 @@ public class AppController implements CommandLineRunner {
         // Print the book's title, release date and copies.
         // this.getAllBooksFromAuthorOrderedByReleaseDateDescBookTitleAsc();
 
+        }
 
-        // USERS SYSTEM
+        // USERS SYSTEM Exercise
 
         // Register a new User in the System
         // this.registerNewUser();
 
 
-        // BOOKSHOP SYSTEM Advanced Querying
+        // BOOKSHOP SYSTEM Advanced Querying Exercises
 
-        // Books Titles by Age Restriction
+        // 1. Books Titles by Age Restriction
         // this.getAllBookTitlesByAgeRestriction();
 
-        // Golden Books
+        // 2. Golden Books
         // this.getBooksByEditionTypeAndCopiesLessThan();
 
-        // Books by Price
+        // 3. Books by Price
         // this.getBooksByPrice();
 
-        // Not Released Books
+        // 4. Not Released Books
         // this.getBooksNotReleasedInYear();
 
-        // Books Released Before Date
+        // 5. Books Released Before Date
         // this.getBooksReleasedBefore();
 
-        // Authors Search
+        // 6. Authors Search
         // this.getAuthorsWithNameEndingWith();
 
-        // Books Search
+        // 7. Books Search
         // this.getBooksByTitleContaining();
 
-        // Book Titles Search
+        // 8. Book Titles Search
         // this.getBooksByAuthorsLastNameStartingWith();
 
-        // Count Books
-        this.countBooksByTitleLengthGreaterThan();
+        // 9. Count Books
+        // this.countBooksByTitleLengthGreaterThan();
 
+        // 10. Total Book Copies
+        this.getTotalNumberOfBookCopiesByAuthor();
     }
 
     //  --- METHODS BOOKSHOP SYSTEM Advanced Querying  --- //
 
-    // Count Books
+    // 10. Total Book Copies
+    private void getTotalNumberOfBookCopiesByAuthor() {
+        this.authorService
+                .getAllByNumberOfBooksCopiesDesc()
+                .forEach(a -> this.writer.writeLine(String.format("%s - %d",
+                        a.getFullName(),
+                        a.sumCopies())));
+    }
+
+    // 9. Count Books
     private void countBooksByTitleLengthGreaterThan() throws IOException {
         this.writer.writeLine("Enter length of title: ");
         int length = Integer.parseInt(this.reader.readLine());
@@ -130,8 +143,7 @@ public class AppController implements CommandLineRunner {
                 this.bookService.countBooksByTitleLengthGreaterThan(length), length));
     }
 
-
-    // Book Titles Search
+    // 8. Book Titles Search
     private void getBooksByAuthorsLastNameStartingWith() throws IOException {
         this.writer.writeLine("Enter a string: ");
         String s = this.reader.readLine();
@@ -140,8 +152,7 @@ public class AppController implements CommandLineRunner {
                 .forEach(b -> this.writer.writeLine(b.getTitle()));
     }
 
-
-    // Books Search
+    // 7. Books Search
     private void getBooksByTitleContaining() throws IOException {
         this.writer.writeLine("Enter a string: ");
         String s = this.reader.readLine();
@@ -151,8 +162,7 @@ public class AppController implements CommandLineRunner {
                 .forEach(b -> this.writer.writeLine(b.getTitle()));
     }
 
-
-    // Authors Search
+    // 6. Authors Search
     private void getAuthorsWithNameEndingWith() throws IOException {
         this.writer.writeLine("Enter a string: ");
         String s = this.reader.readLine();
@@ -162,8 +172,7 @@ public class AppController implements CommandLineRunner {
                 .forEach(a -> this.writer.writeLine(a.getFullName()));
     }
 
-
-    // Books Released Before Date
+    // 5. Books Released Before Date
     private void getBooksReleasedBefore() throws IOException {
         this.writer.writeLine("Enter Release Date in format [dd-MM-yyyy]: ");
         String date = this.reader.readLine();
@@ -179,8 +188,7 @@ public class AppController implements CommandLineRunner {
                 );
     }
 
-
-    // Not Released Books
+    // 4. Not Released Books
     private void getBooksNotReleasedInYear() throws IOException {
         this.writer.writeLine("Enter Release Year: ");
         int year = Integer.parseInt(this.reader.readLine());
@@ -190,7 +198,7 @@ public class AppController implements CommandLineRunner {
                 .forEach(b -> this.writer.writeLine(b.getTitle()));
     }
 
-    // Books by Price
+    // 3. Books by Price
     private void getBooksByPrice() throws IOException {
         this.writer.writeLine("Enter Lower Price Bound: ");
         BigDecimal lower = new BigDecimal(this.reader.readLine());
@@ -204,7 +212,7 @@ public class AppController implements CommandLineRunner {
                         String.format("%s - $%s", b.getTitle(), b.getPrice())));
     }
 
-    // Golden Books
+    // 2. Golden Books
     private void getBooksByEditionTypeAndCopiesLessThan() throws IOException {
         this.writer.writeLine("Enter Edition Type [NORMAL, PROMO, GOLD]: ");
         String editionType = this.reader.readLine();
@@ -216,7 +224,7 @@ public class AppController implements CommandLineRunner {
                 .forEach(b -> this.writer.writeLine(b.getTitle()));
     }
 
-    // Books Titles by Age Restriction
+    // 1. Books Titles by Age Restriction
     private void getAllBookTitlesByAgeRestriction() throws IOException {
         this.writer.writeLine("Enter Age Restriction: ");
         this.bookService.getAllBooksByAgeRestriction(this.reader.readLine())
@@ -224,6 +232,8 @@ public class AppController implements CommandLineRunner {
     }
 
     //  --- END OF METHODS BOOKSHOP SYSTEM Advanced Querying  --- //
+
+
 
     //  --- METHODS BOOKSHOP SYSTEM  --- //
 
