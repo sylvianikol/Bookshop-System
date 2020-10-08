@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -30,7 +31,7 @@ public class CategoryServiceImpl implements CategoryService {
     public void seedCategories() throws IOException {
 
 
-        String[] fileContent =
+        List<String> fileContent =
                 this.fileUtil.readFileContent(CATEGORIES_FILE_PATH);
 
 

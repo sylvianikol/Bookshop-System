@@ -46,7 +46,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void seedBooks() throws IOException {
-        String[] fileContent = this.fileUtil.readFileContent(BOOKS_FILE_PATH);
+        List<String> fileContent = this.fileUtil.readFileContent(BOOKS_FILE_PATH);
 
         for (String bookData : fileContent) {
             String[] params = bookData.split("\\s+");

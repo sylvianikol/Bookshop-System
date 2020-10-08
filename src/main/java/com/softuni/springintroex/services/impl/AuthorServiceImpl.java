@@ -29,7 +29,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void seedAuthors() throws IOException {
-        String[] fileContent = this.fileUtil.readFileContent(AUTHORS_FILE_PATH);
+        List<String> fileContent = this.fileUtil.readFileContent(AUTHORS_FILE_PATH);
 
         for (String authorFullName : fileContent) {
             String[] names = authorFullName.split("\\s+");
