@@ -5,6 +5,8 @@ import com.softuni.springintroex.entities.bookshop.Author;
 import com.softuni.springintroex.entities.bookshop.Book;
 import com.softuni.springintroex.entities.bookshop.EditionType;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -31,4 +33,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     List<Book> findAllByTitleIgnoreCaseContaining(String s);
 
     List<Book> findAllByAuthorIn(List<Author> authors);
+
+    @Query("SELECT count(b) FROM Book b WHERE length(b.title) > :length")
+    int countAllByTitleWithLengthGreaterThan(@Param(value = "length") int length);
 }

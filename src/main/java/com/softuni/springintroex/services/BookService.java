@@ -28,4 +28,6 @@ public interface BookService {
     List<Book> getAllBooksByTitleContaining(String s);
 
     List<Book> getAllBooksByAuthorsNameStartingWith(String s);
+
+    int countBooksByTitleLengthGreaterThan(int length);
 }

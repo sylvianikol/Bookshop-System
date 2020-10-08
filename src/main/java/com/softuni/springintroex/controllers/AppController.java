@@ -112,11 +112,23 @@ public class AppController implements CommandLineRunner {
         // this.getBooksByTitleContaining();
 
         // Book Titles Search
-        this.getBooksByAuthorsLastNameStartingWith();
+        // this.getBooksByAuthorsLastNameStartingWith();
+
+        // Count Books
+        this.countBooksByTitleLengthGreaterThan();
 
     }
 
     //  --- METHODS BOOKSHOP SYSTEM Advanced Querying  --- //
+
+    // Count Books
+    private void countBooksByTitleLengthGreaterThan() throws IOException {
+        this.writer.writeLine("Enter length of title: ");
+        int length = Integer.parseInt(this.reader.readLine());
+
+        this.writer.writeLine(String.format("There are %d books with title longer than %d symbols",
+                this.bookService.countBooksByTitleLengthGreaterThan(length), length));
+    }
 
 
     // Book Titles Search
