@@ -24,4 +24,6 @@ public interface BookService {
     List<Book> getAllNotReleasedInYear(int year);
 
     List<Book> getAllBooksReleasedBefore(String date);
+
+    List<Book> getAllBooksByTitleContaining(String s);
 }

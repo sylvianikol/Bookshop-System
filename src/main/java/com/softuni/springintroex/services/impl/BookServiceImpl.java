@@ -121,6 +121,11 @@ public class BookServiceImpl implements BookService {
                 .findAllByReleaseDateBefore(releaseDate);
     }
 
+    @Override
+    public List<Book> getAllBooksByTitleContaining(String s) {
+        return this.bookRepository.findAllByTitleIgnoreCaseContaining(s);
+    }
+
     //  HELPER METHODS  ////////////////////////////////
     private String parseBookTitle(String[] params) {
         StringBuilder titleBuilder = new StringBuilder();
