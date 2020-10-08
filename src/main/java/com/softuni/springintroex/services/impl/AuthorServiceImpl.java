@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import static com.softuni.springintroex.constants.GlobalConstants.*;
@@ -70,5 +71,13 @@ public class AuthorServiceImpl implements AuthorService {
     public Author getAuthorByName(String authorName) {
         String[] names = authorName.split("\\s+");
         return this.authorRepository.findAuthorByFirstNameAndLastName(names[0], names[1]);
+    }
+
+    @Override
+    public Author getRandomAuthor() {
+        Random random = new Random();
+        int randomId = random.nextInt((int) this.getAuthorsCount()) + 1;
+
+        return this.getAuthorById(randomId);
     }
 }

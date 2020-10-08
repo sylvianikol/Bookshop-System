@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 
 import static com.softuni.springintroex.constants.GlobalConstants.CATEGORIES_FILE_PATH;
 
@@ -48,6 +51,19 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public long getCount() {
         return this.categoryRepository.count();
+    }
+
+    @Override
+    public Set<Category> getRandomCategories() {
+        Random random = new Random();
+
+        Set<Category> categories = new HashSet<>();
+
+        for (int i = 0; i < 3; i++) {
+            int randomId = random.nextInt((int) this.getCount()) + 1;
+            categories.add(this.getCategoryById(randomId));
+        }
+        return categories;
     }
 
 }

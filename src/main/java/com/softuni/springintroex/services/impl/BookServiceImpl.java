@@ -51,7 +51,7 @@ public class BookServiceImpl implements BookService {
         for (String bookData : fileContent) {
             String[] params = bookData.split("\\s+");
 
-            Author author = this.getRandomAuthor();
+            Author author = this.authorService.getRandomAuthor();
             EditionType editionType = EditionType.values()[Integer.parseInt(params[0])];
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
@@ -64,7 +64,7 @@ public class BookServiceImpl implements BookService {
 
             Book book = new Book(title, editionType, price, copies, releaseDate, ageRestriction, author);
 
-            book.setCategories(this.getRandomCategories());
+            book.setCategories(this.categoryService.getRandomCategories());
 
             this.bookRepository.saveAndFlush(book);
         }
@@ -83,18 +83,6 @@ public class BookServiceImpl implements BookService {
     }
 
     //  HELPER METHODS  ////////////////////////////////
-    private Set<Category> getRandomCategories() {
-        Random random = new Random();
-
-        Set<Category> categories = new HashSet<>();
-
-        for (int i = 0; i < 3; i++) {
-            int randomId = random.nextInt((int) this.categoryService.getCount()) + 1;
-            categories.add(this.categoryService.getCategoryById(randomId));
-        }
-        return categories;
-    }
-
     private String parseBookTitle(String[] params) {
         StringBuilder titleBuilder = new StringBuilder();
 
@@ -104,12 +92,5 @@ public class BookServiceImpl implements BookService {
         }
 
         return titleBuilder.toString().trim();
-    }
-
-    private Author getRandomAuthor() {
-        Random random = new Random();
-        int randomId = random.nextInt((int) this.authorService.getAuthorsCount()) + 1;
-
-        return this.authorService.getAuthorById(randomId);
     }
 }

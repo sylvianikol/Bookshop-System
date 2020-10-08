@@ -47,7 +47,7 @@ public class AppController implements CommandLineRunner {
 
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         // SEED DATA TO BOOKSHOP SYSTEM
 //        this.categoryService.seedCategories();
 //        this.authorService.seedAuthors();
@@ -78,7 +78,7 @@ public class AppController implements CommandLineRunner {
         // USERS SYSTEM
 
         // Register a new User in the System
-        this.registerNewUser();
+        // this.registerNewUser();
 
     }
 

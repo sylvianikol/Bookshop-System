@@ -18,4 +18,6 @@ public interface AuthorService {
     List<Author> getAllByBooksCount();
 
     Author getAuthorByName(String authorName);
+
+    Author getRandomAuthor();
 }
