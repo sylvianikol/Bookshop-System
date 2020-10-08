@@ -80,4 +80,9 @@ public class AuthorServiceImpl implements AuthorService {
 
         return this.getAuthorById(randomId);
     }
+
+    @Override
+    public List<Author> getAllByNameEndingWith(String s) {
+        return this.authorRepository.findAllByFirstNameEndingWith(s);
+    }
 }

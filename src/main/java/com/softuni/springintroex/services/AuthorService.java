@@ -20,4 +20,6 @@ public interface AuthorService {
     Author getAuthorByName(String authorName);
 
     Author getRandomAuthor();
+
+    List<Author> getAllByNameEndingWith(String s);
 }

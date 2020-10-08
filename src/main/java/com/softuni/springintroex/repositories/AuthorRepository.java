@@ -22,4 +22,6 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
 
     @Query("SELECT a FROM Author a LEFT JOIN a.books b WHERE b.releaseDate < ?1")
     Set<Author> findAllByBooksBefore(LocalDate date);
+
+    List<Author> findAllByFirstNameEndingWith(String s);
 }
