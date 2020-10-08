@@ -111,12 +111,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> getAllBooksReleasedBefore(String date) {
-        int[] parts = Arrays.stream(date.split("-"))
-                .mapToInt(Integer::parseInt)
-                .toArray();
-
-        LocalDate releaseDate = LocalDate.of(parts[2], parts[1], parts[0]);
-
+        LocalDate releaseDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         return this.bookRepository
                 .findAllByReleaseDateBefore(releaseDate);
     }
