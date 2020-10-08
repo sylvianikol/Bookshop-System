@@ -14,10 +14,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
-import java.util.Set;
 
 import static com.softuni.springintroex.constants.GlobalConstants.BOOKS_FILE_PATH;
 
@@ -80,6 +77,26 @@ public class BookServiceImpl implements BookService {
     public List<Book> findBooksByAuthor(Author author) {
         return this.bookRepository
                 .findAllByAuthorOrderByReleaseDateDescTitleAsc(author);
+    }
+
+    @Override
+    public List<Book> getAllBooksByAgeRestriction(String ageRestriction) {
+        return this.bookRepository
+                .findAllByAgeRestriction(AgeRestriction.valueOf(ageRestriction.toUpperCase()));
+    }
+
+    @Override
+    public List<Book> getAllByEditionTypeAndCopiesLessThan(String editionType, int copies) {
+        return this.bookRepository
+                .findAllByEditionTypeAndCopiesIsLessThan(
+                        EditionType.valueOf(editionType.toUpperCase()), copies);
+    }
+
+    @Override
+    public List<Book> getAllByPriceLessThanOrGreaterThan(BigDecimal lessThan, BigDecimal greaterThan) {
+
+        return this.bookRepository
+                .findAllByPriceLessThanOrPriceGreaterThan(lessThan, greaterThan);
     }
 
     //  HELPER METHODS  ////////////////////////////////

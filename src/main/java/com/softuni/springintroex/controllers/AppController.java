@@ -3,8 +3,8 @@ package com.softuni.springintroex.controllers;
 import com.softuni.springintroex.entities.bookshop.Author;
 import com.softuni.springintroex.entities.bookshop.Book;
 import com.softuni.springintroex.entities.usersystem.User;
-import com.softuni.springintroex.io.ConsoleReader;
-import com.softuni.springintroex.io.ConsoleWriter;
+import com.softuni.springintroex.io.interfaces.InputReader;
+import com.softuni.springintroex.io.interfaces.OutputWriter;
 import com.softuni.springintroex.services.AuthorService;
 import com.softuni.springintroex.services.BookService;
 import com.softuni.springintroex.services.CategoryService;
@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 
 import javax.validation.ConstraintViolationException;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,33 +30,34 @@ public class AppController implements CommandLineRunner {
 
     private final UserService userService;
 
-    private final ConsoleReader reader;
-    private final ConsoleWriter writer;
+    private final InputReader reader;
+    private final OutputWriter writer;
 
     @Autowired
     public AppController(CategoryService categoryService,
                          AuthorService authorService,
                          BookService bookService,
-                         UserService userService) {
+                         UserService userService,
+                         InputReader reader, OutputWriter writer) {
         this.categoryService = categoryService;
         this.authorService = authorService;
         this.bookService = bookService;
         this.userService = userService;
 
-        this.reader = new ConsoleReader();
-        this.writer = new ConsoleWriter();
+        this.reader = reader;
+        this.writer = writer;
     }
 
 
     @Override
     public void run(String... args) throws IOException, ParseException {
         // SEED DATA TO BOOKSHOP SYSTEM
-        this.categoryService.seedCategories();
-        this.writer.writeLine("Categories seeded in Database!");
-        this.authorService.seedAuthors();
-        this.writer.writeLine("Authors seeded in Database!");
-        this.bookService.seedBooks();
-        this.writer.writeLine("Books seeded in Database!");
+//        this.categoryService.seedCategories();
+//        this.writer.writeLine("Categories seeded in Database!");
+//        this.authorService.seedAuthors();
+//        this.writer.writeLine("Authors seeded in Database!");
+//        this.bookService.seedBooks();
+//        this.writer.writeLine("Books seeded in Database!");
 
 
         // BOOKSHOP SYSTEM QUERIES
@@ -85,7 +87,56 @@ public class AppController implements CommandLineRunner {
         // Register a new User in the System
         // this.registerNewUser();
 
+
+        // BOOKSHOP SYSTEM Advanced Querying
+
+        // Books Titles by Age Restriction
+        // this.getAllBookTitlesByAgeRestriction();
+
+        // Golden Books
+        // this.getBooksByEditionTypeAndCopiesLessThan();
+
+        // Books by Price
+        this.getBooksByPrice();
+
     }
+
+
+
+    //  --- METHODS BOOKSHOP SYSTEM Advanced Querying  --- //
+    private void getBooksByPrice() throws IOException {
+        this.writer.writeLine("Enter Lower Price Bound: ");
+        BigDecimal lower = new BigDecimal(this.reader.readLine());
+
+        this.writer.writeLine("Enter Greater Price Bound: ");
+        BigDecimal greater = new BigDecimal(this.reader.readLine());
+
+        this.bookService
+                .getAllByPriceLessThanOrGreaterThan(lower, greater)
+                .forEach(b -> this.writer.writeLine(
+                        String.format("%s - $%s", b.getTitle(), b.getPrice())));
+    }
+
+    // Golden Books
+    private void getBooksByEditionTypeAndCopiesLessThan() throws IOException {
+        this.writer.writeLine("Enter Edition Type [NORMAL, PROMO, GOLD]: ");
+        String editionType = this.reader.readLine();
+        this.writer.writeLine("Enter number of Copies: ");
+        int copies = Integer.parseInt(this.reader.readLine());
+
+        this.bookService
+                .getAllByEditionTypeAndCopiesLessThan(editionType, copies)
+                .forEach(b -> this.writer.writeLine(b.getTitle()));
+    }
+
+    // Books Titles by Age Restriction
+    private void getAllBookTitlesByAgeRestriction() throws IOException {
+        this.writer.writeLine("Enter Age Restriction: ");
+        this.bookService.getAllBooksByAgeRestriction(this.reader.readLine())
+                .forEach(b -> this.writer.writeLine(b.getTitle()));
+    }
+
+    //  --- END OF METHODS BOOKSHOP SYSTEM Advanced Querying  --- //
 
     //  --- METHODS BOOKSHOP SYSTEM  --- //
 
