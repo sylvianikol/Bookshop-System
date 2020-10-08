@@ -51,8 +51,12 @@ public class AppController implements CommandLineRunner {
     public void run(String... args) throws IOException, ParseException {
         // SEED DATA TO BOOKSHOP SYSTEM
         this.categoryService.seedCategories();
+        this.writer.writeLine("Categories seeded in Database!");
         this.authorService.seedAuthors();
+        this.writer.writeLine("Authors seeded in Database!");
         this.bookService.seedBooks();
+        this.writer.writeLine("Books seeded in Database!");
+
 
         // BOOKSHOP SYSTEM QUERIES
 
