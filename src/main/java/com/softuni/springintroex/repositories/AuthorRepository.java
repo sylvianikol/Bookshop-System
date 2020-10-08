@@ -24,4 +24,6 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
     Set<Author> findAllByBooksBefore(LocalDate date);
 
     List<Author> findAllByFirstNameEndingWith(String s);
+
+    List<Author> findAllByLastNameIgnoreCaseStartingWith(String s);
 }

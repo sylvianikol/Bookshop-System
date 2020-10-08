@@ -126,6 +126,12 @@ public class BookServiceImpl implements BookService {
         return this.bookRepository.findAllByTitleIgnoreCaseContaining(s);
     }
 
+    @Override
+    public List<Book> getAllBooksByAuthorsNameStartingWith(String s) {
+        List<Author> authors = this.authorService.getAllByLastNameStartingWith(s);
+        return this.bookRepository.findAllByAuthorIn(authors);
+    }
+
     //  HELPER METHODS  ////////////////////////////////
     private String parseBookTitle(String[] params) {
         StringBuilder titleBuilder = new StringBuilder();

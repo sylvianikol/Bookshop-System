@@ -82,7 +82,13 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public List<Author> getAllByNameEndingWith(String s) {
+    public List<Author> getAllByFirstNameEndingWith(String s) {
         return this.authorRepository.findAllByFirstNameEndingWith(s);
+    }
+
+    @Override
+    public List<Author> getAllByLastNameStartingWith(String s) {
+        return this.authorRepository
+                .findAllByLastNameIgnoreCaseStartingWith(s);
     }
 }

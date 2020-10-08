@@ -26,4 +26,6 @@ public interface BookService {
     List<Book> getAllBooksReleasedBefore(String date);
 
     List<Book> getAllBooksByTitleContaining(String s);
+
+    List<Book> getAllBooksByAuthorsNameStartingWith(String s);
 }

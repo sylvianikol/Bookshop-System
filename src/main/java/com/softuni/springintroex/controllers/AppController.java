@@ -109,11 +109,25 @@ public class AppController implements CommandLineRunner {
         // this.getAuthorsWithNameEndingWith();
 
         // Books Search
-        this.getBooksByTitleContaining();
+        // this.getBooksByTitleContaining();
+
+        // Book Titles Search
+        this.getBooksByAuthorsLastNameStartingWith();
 
     }
 
     //  --- METHODS BOOKSHOP SYSTEM Advanced Querying  --- //
+
+
+    // Book Titles Search
+    private void getBooksByAuthorsLastNameStartingWith() throws IOException {
+        this.writer.writeLine("Enter a string: ");
+        String s = this.reader.readLine();
+
+        this.bookService.getAllBooksByAuthorsNameStartingWith(s)
+                .forEach(b -> this.writer.writeLine(b.getTitle()));
+    }
+
 
     // Books Search
     private void getBooksByTitleContaining() throws IOException {
@@ -132,7 +146,7 @@ public class AppController implements CommandLineRunner {
         String s = this.reader.readLine();
 
         this.authorService
-                .getAllByNameEndingWith(s)
+                .getAllByFirstNameEndingWith(s)
                 .forEach(a -> this.writer.writeLine(a.getFullName()));
     }
 

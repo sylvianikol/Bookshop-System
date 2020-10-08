@@ -21,5 +21,7 @@ public interface AuthorService {
 
     Author getRandomAuthor();
 
-    List<Author> getAllByNameEndingWith(String s);
+    List<Author> getAllByFirstNameEndingWith(String s);
+
+    List<Author> getAllByLastNameStartingWith(String s);
 }
