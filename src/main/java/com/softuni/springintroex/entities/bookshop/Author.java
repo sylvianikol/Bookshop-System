@@ -12,6 +12,7 @@ public class Author extends BaseEntity {
 
     private String firstName;
     private String lastName;
+    private String fullName;
 
     private Set<Book> books;
 
@@ -40,6 +41,14 @@ public class Author extends BaseEntity {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getFullName() {
+        return this.getFirstName() + " " + this.getLastName();
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     @OneToMany(mappedBy = "author", targetEntity = Book.class, fetch = FetchType.EAGER)
