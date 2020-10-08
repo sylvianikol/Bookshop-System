@@ -43,6 +43,7 @@ public class Author extends BaseEntity {
         this.lastName = lastName;
     }
 
+    @Transient
     public String getFullName() {
         return this.getFirstName() + " " + this.getLastName();
     }
@@ -58,5 +59,13 @@ public class Author extends BaseEntity {
 
     public void setBooks(Set<Book> books) {
         this.books = books;
+    }
+
+    public int sumCopies() {
+        int sum = 0;
+        for (Book book : this.books) {
+            sum += book.getCopies();
+        }
+        return sum;
     }
 }
