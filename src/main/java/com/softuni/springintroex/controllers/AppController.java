@@ -102,9 +102,29 @@ public class AppController implements CommandLineRunner {
         // Not Released Books
         // this.getBooksNotReleasedInYear();
 
+        // Books Released Before Date
+        this.getBooksReleasedBefore();
+
     }
 
     //  --- METHODS BOOKSHOP SYSTEM Advanced Querying  --- //
+
+    // Books Released Before Date
+    private void getBooksReleasedBefore() throws IOException {
+        this.writer.writeLine("Enter Release Date in format [dd-MM-yyyy]: ");
+        String date = this.reader.readLine();
+
+        this.bookService
+                .getAllBooksReleasedBefore(date)
+                .forEach(b -> this.writer.writeLine(
+                        String.format("%s %s %s",
+                                b.getTitle(),
+                                b.getEditionType().toString(),
+                                b.getPrice())
+                        )
+                );
+    }
+
 
     // Not Released Books
     private void getBooksNotReleasedInYear() throws IOException {

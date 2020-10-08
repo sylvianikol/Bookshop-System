@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.softuni.springintroex.constants.GlobalConstants.BOOKS_FILE_PATH;
@@ -106,6 +107,18 @@ public class BookServiceImpl implements BookService {
 
         return this.bookRepository
                 .findAllByReleaseDateBeforeOrReleaseDateAfter(before, after);
+    }
+
+    @Override
+    public List<Book> getAllBooksReleasedBefore(String date) {
+        int[] parts = Arrays.stream(date.split("-"))
+                .mapToInt(Integer::parseInt)
+                .toArray();
+
+        LocalDate releaseDate = LocalDate.of(parts[2], parts[1], parts[0]);
+
+        return this.bookRepository
+                .findAllByReleaseDateBefore(releaseDate);
     }
 
     //  HELPER METHODS  ////////////////////////////////

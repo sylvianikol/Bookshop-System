@@ -22,4 +22,6 @@ public interface BookService {
     List<Book> getAllByPriceLessThanOrGreaterThan(BigDecimal lessThan, BigDecimal greaterThan);
 
     List<Book> getAllNotReleasedInYear(int year);
+
+    List<Book> getAllBooksReleasedBefore(String date);
 }
