@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 
 import javax.validation.ConstraintViolationException;
 import java.io.IOException;
+import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -47,11 +48,11 @@ public class AppController implements CommandLineRunner {
 
 
     @Override
-    public void run(String... args) {
+    public void run(String... args) throws IOException, ParseException {
         // SEED DATA TO BOOKSHOP SYSTEM
-//        this.categoryService.seedCategories();
-//        this.authorService.seedAuthors();
-//        this.bookService.seedBooks();
+        this.categoryService.seedCategories();
+        this.authorService.seedAuthors();
+        this.bookService.seedBooks();
 
         // BOOKSHOP SYSTEM QUERIES
 
