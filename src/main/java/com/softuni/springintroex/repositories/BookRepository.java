@@ -5,9 +5,11 @@ import com.softuni.springintroex.entities.bookshop.Author;
 import com.softuni.springintroex.entities.bookshop.Book;
 import com.softuni.springintroex.entities.bookshop.EditionType;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -39,4 +41,15 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Query("SELECT sum(b.copies) FROM Book b WHERE b.author.id = :id")
     int getTotalCopiesPerAuthor(@Param(value = "id") long id);
+
+    @Query("SELECT new Book(b.title, b.editionType, b.ageRestriction, b.price) " +
+            "FROM Book b WHERE b.title = :title")
+    Book getCertainFieldsByTitle(@Param(value = "title") String title);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE Book b SET b.copies = b.copies + :copies WHERE b.releaseDate > :date")
+    int updateCopiesOfBooksReleasedAfter(@Param(value = "date") LocalDate date,
+                                         @Param(value = "copies") int copies);
+
 }
