@@ -3,6 +3,7 @@ package com.softuni.springintroex.services;
 import com.softuni.springintroex.entities.bookshop.Author;
 import com.softuni.springintroex.entities.bookshop.Book;
 
+import javax.persistence.Tuple;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -32,4 +33,8 @@ public interface BookService {
     int countBooksByTitleLengthGreaterThan(int length);
 
     int getTotalCopiesPerAuthor(Author author);
+
+    Book getBookInfo(String title);
+
+    int increaseCopies(String date, int copies);
 }

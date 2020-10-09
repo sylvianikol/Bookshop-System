@@ -120,10 +120,43 @@ public class AppController implements CommandLineRunner {
         // this.countBooksByTitleLengthGreaterThan();
 
         // 10. Total Book Copies
-        this.getTotalNumberOfBookCopiesByAuthor();
+        // this.getTotalNumberOfBookCopiesByAuthor();
+
+        // 11. Reduced Book
+         this.getReducedBookInformation();
+
+        // 12. * Increase Book Copies
+        // this.increaseBookCopies();
     }
 
     //  --- METHODS BOOKSHOP SYSTEM Advanced Querying  --- //
+
+    // 12. * Increase Book Copies
+    private void increaseBookCopies() throws IOException {
+        this.writer.writeLine("Enter a Date (dd MMM yyyy): ");
+        String date = this.reader.readLine();
+        this.writer.writeLine("Enter a Number of Copies: ");
+        int copies = Integer.parseInt(this.reader.readLine());
+
+        int updated = this.bookService.increaseCopies(date, copies);
+
+        this.writer.writeLine(copies * updated);
+    }
+
+    // 11. Reduced Book
+    private void getReducedBookInformation() throws IOException {
+        this.writer.writeLine("Enter Book Title: ");
+        String title = this.reader.readLine();
+
+        Book book = this.bookService.getBookInfo(title);
+
+        this.writer.writeLine(String.format("%s %s %s %.2f",
+                book.getTitle(),
+                book.getEditionType(),
+                book.getAgeRestriction(),
+                book.getPrice()));
+
+    }
 
     // 10. Total Book Copies
     private void getTotalNumberOfBookCopiesByAuthor() {

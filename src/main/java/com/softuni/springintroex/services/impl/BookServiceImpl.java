@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.List;
 
 import static com.softuni.springintroex.constants.GlobalConstants.BOOKS_FILE_PATH;
@@ -136,6 +135,19 @@ public class BookServiceImpl implements BookService {
     @Override
     public int getTotalCopiesPerAuthor(Author author) {
         return this.bookRepository.getTotalCopiesPerAuthor(author.getId());
+    }
+
+    @Override
+    public Book getBookInfo(String title) {
+        return this.bookRepository.getCertainFieldsByTitle(title);
+    }
+
+
+    @Override
+    public int increaseCopies(String date, int copies) {
+        LocalDate releaseDate =
+                LocalDate.parse(date, DateTimeFormatter.ofPattern("dd MMM yyyy"));
+        return this.bookRepository.updateCopiesOfBooksReleasedAfter(releaseDate, copies);
     }
 
     //  HELPER METHODS  ////////////////////////////////
