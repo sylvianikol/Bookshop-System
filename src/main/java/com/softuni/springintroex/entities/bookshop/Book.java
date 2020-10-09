@@ -28,16 +28,23 @@ public class Book extends BaseEntity {
     }
 
     public Book(String title, EditionType editionType,
+                AgeRestriction ageRestriction,
+                BigDecimal price) {
+        this();
+        this.setTitle(title);
+        this.setEditionType(editionType);
+        this.setAgeRestriction(ageRestriction);
+        this.setPrice(price);
+    }
+
+    public Book(String title, EditionType editionType,
                 BigDecimal price, int copies,
                 LocalDate releaseDate,
                 AgeRestriction ageRestriction,
                 Author author) {
-        this.setTitle(title);
-        this.setEditionType(editionType);
-        this.setPrice(price);
+        this(title, editionType, ageRestriction, price);
         this.setCopies(copies);
         this.setReleaseDate(releaseDate);
-        this.setAgeRestriction(ageRestriction);
         this.setAuthor(author);
     }
 
