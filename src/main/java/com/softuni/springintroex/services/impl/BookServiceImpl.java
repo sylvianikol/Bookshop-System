@@ -150,6 +150,18 @@ public class BookServiceImpl implements BookService {
         return this.bookRepository.updateCopiesOfBooksReleasedAfter(releaseDate, copies);
     }
 
+    @Override
+    public int removeBooksWithCopiesLessThan(int number) {
+        return this.bookRepository.removeBooksByCopiesLessThan(number);
+    }
+
+    @Override
+    public int getTotalBooksCountPerAuthor(String fullname) {
+        String[] names = fullname.split("\\s+");
+        return this.bookRepository
+                .getBooksCountByAuthor(names[0], names[1]);
+    }
+
     //  HELPER METHODS  ////////////////////////////////
     private String parseBookTitle(String[] params) {
         StringBuilder titleBuilder = new StringBuilder();

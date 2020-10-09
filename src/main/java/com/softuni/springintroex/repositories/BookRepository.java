@@ -52,4 +52,11 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     int updateCopiesOfBooksReleasedAfter(@Param(value = "date") LocalDate date,
                                          @Param(value = "copies") int copies);
 
+    @Modifying
+    @Transactional
+    int removeBooksByCopiesLessThan(int number);
+
+    @Query(value = "CALL sp_total_books_by_author(:first_name, :last_name)", nativeQuery = true)
+    int getBooksCountByAuthor(@Param(value = "first_name") String firstName,
+                              @Param(value = "last_name") String lastName);
 }

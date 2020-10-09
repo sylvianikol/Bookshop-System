@@ -37,4 +37,8 @@ public interface BookService {
     Book getBookInfo(String title);
 
     int increaseCopies(String date, int copies);
+
+    int removeBooksWithCopiesLessThan(int number);
+
+    int getTotalBooksCountPerAuthor(String fullname);
 }

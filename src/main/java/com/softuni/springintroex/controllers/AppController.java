@@ -123,13 +123,37 @@ public class AppController implements CommandLineRunner {
         // this.getTotalNumberOfBookCopiesByAuthor();
 
         // 11. Reduced Book
-         this.getReducedBookInformation();
+        // this.getReducedBookInformation();
 
         // 12. * Increase Book Copies
         // this.increaseBookCopies();
+
+        // 13. * Remove Books
+        // this.removeBooksWithCopiesLessThan();
+
+        // 14. * Stored Procedure
+        this.getTotalBooksPerAuthor();
     }
 
     //  --- METHODS BOOKSHOP SYSTEM Advanced Querying  --- //
+
+    // 14. * Stored Procedure
+    private void getTotalBooksPerAuthor() throws IOException {
+        this.writer.writeLine("Enter Author's Full Name: ");
+        String fullname = this.reader.readLine();
+
+        int count = this.bookService.getTotalBooksCountPerAuthor(fullname);
+
+        System.out.println(count);
+    }
+
+    // 13. * Remove Books
+    private void removeBooksWithCopiesLessThan() throws IOException {
+        this.writer.writeLine("Enter a number: ");
+        int number = Integer.parseInt(this.reader.readLine());
+
+        this.writer.writeLine(this.bookService.removeBooksWithCopiesLessThan(number));
+    }
 
     // 12. * Increase Book Copies
     private void increaseBookCopies() throws IOException {
