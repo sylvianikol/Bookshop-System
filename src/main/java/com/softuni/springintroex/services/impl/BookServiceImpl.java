@@ -133,6 +133,11 @@ public class BookServiceImpl implements BookService {
                 .countAllByTitleWithLengthGreaterThan(length);
     }
 
+    @Override
+    public int getTotalCopiesPerAuthor(Author author) {
+        return this.bookRepository.getTotalCopiesPerAuthor(author.getId());
+    }
+
     //  HELPER METHODS  ////////////////////////////////
     private String parseBookTitle(String[] params) {
         StringBuilder titleBuilder = new StringBuilder();

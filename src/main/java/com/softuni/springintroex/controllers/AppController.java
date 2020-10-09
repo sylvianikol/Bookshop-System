@@ -131,7 +131,7 @@ public class AppController implements CommandLineRunner {
                 .getAllByNumberOfBooksCopiesDesc()
                 .forEach(a -> this.writer.writeLine(String.format("%s - %d",
                         a.getFullName(),
-                        a.sumCopies())));
+                        this.bookService.getTotalCopiesPerAuthor(a))));
     }
 
     // 9. Count Books

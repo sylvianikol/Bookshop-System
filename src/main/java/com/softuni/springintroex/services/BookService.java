@@ -30,4 +30,6 @@ public interface BookService {
     List<Book> getAllBooksByAuthorsNameStartingWith(String s);
 
     int countBooksByTitleLengthGreaterThan(int length);
+
+    int getTotalCopiesPerAuthor(Author author);
 }

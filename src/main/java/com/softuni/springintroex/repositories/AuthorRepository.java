@@ -34,4 +34,5 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
             "ORDER BY sum(`b`.`copies`) DESC", nativeQuery = true)
     List<Author> findAllByTotalBookCopiesOrderByTotalDesc();
 
+
 }
