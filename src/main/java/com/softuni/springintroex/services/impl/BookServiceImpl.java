@@ -19,12 +19,9 @@ import java.util.List;
 import static com.softuni.springintroex.constants.GlobalConstants.BOOKS_FILE_PATH;
 
 @Service
-@Transactional
 public class BookServiceImpl implements BookService {
 
-    // One service -> One Repository (BookService -> BookRepository)
     private final BookRepository bookRepository;
-    // If data is needed from other repositories inject their corresponding service instead!
     private final AuthorService authorService;
     private final CategoryService categoryService;
 
@@ -158,9 +155,17 @@ public class BookServiceImpl implements BookService {
     @Override
     public int getTotalBooksCountPerAuthor(String fullname) {
         String[] names = fullname.split("\\s+");
-        return this.bookRepository
+
+        this.bookRepository.createStoredProcedure();
+
+        int result = this.bookRepository
                 .getBooksCountByAuthor(names[0], names[1]);
+
+        this.bookRepository.dropStoredProcedure();
+
+        return result;
     }
+
 
     //  HELPER METHODS  ////////////////////////////////
     private String parseBookTitle(String[] params) {

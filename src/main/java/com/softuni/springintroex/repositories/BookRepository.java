@@ -59,4 +59,18 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query(value = "CALL sp_total_books_by_author(:first_name, :last_name)", nativeQuery = true)
     int getBooksCountByAuthor(@Param(value = "first_name") String firstName,
                               @Param(value = "last_name") String lastName);
+
+    @Modifying
+    @Transactional
+    @Query(value = "DROP PROCEDURE IF EXISTS sp_total_books_by_author;", nativeQuery = true)
+    void dropStoredProcedure();
+
+    @Modifying
+    @Transactional
+    @Query(value = "CREATE PROCEDURE sp_total_books_by_author(first_name VARCHAR(255), last_name VARCHAR(255))\n" +
+            "SELECT count(`b`.`id`) FROM `books` `b`\n" +
+            "JOIN `authors` `a` ON `a`.`id` = `b`.`author_id`\n" +
+            "WHERE `a`.`first_name` LIKE `first_name` AND `a`.`last_name` LIKE `last_name`\n" +
+            "GROUP BY `a`.`id`", nativeQuery = true)
+    void createStoredProcedure();
 }

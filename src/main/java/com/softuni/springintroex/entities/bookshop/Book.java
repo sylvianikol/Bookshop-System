@@ -66,8 +66,7 @@ public class Book extends BaseEntity {
         this.description = description;
     }
 
-    @Enumerated // EnumType.ORDINAL is used by default
-    // columnDefinition=smallint since we will not need more than 2 bytes
+    @Enumerated
     @Column(name = "edition_type", columnDefinition = "smallint", nullable = false)
     public EditionType getEditionType() {
         return editionType;
@@ -104,8 +103,7 @@ public class Book extends BaseEntity {
         this.releaseDate = releaseDate;
     }
 
-    @Enumerated // EnumType.ORDINAL is used by default
-    // columnDefinition=smallint since we will not need more than 2 bytes
+    @Enumerated
     @Column(name = "age_restriction", columnDefinition = "smallint", nullable = false)
     public AgeRestriction getAgeRestriction() {
         return ageRestriction;
